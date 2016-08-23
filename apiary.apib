@@ -1,0 +1,1290 @@
+FORMAT: 1A
+HOST: http://private-44548-xinetapi.apiary-mock.com/xinetapi
+
+# Xinet API
+
+This document describes the new Xinet API.
+
+
+
+# Group File Resource API
+
+The _file_ resource represents a file record in the Venture database. Each file record 
+may include a request for the following additional information:
+
+## File Info [/files/{id}/info]
+
+This is the base file information for an asset in the database. 
+
+_[XXX *Note:* It seems unnecessary to return the files array for a single element request, 
+so I've removed the array wrap and just returned the File object.]_
+
++ Parameters
+    + id: 123 (required, number) -  The File ID of the asset.
+
+### Get File Info [GET]
+
++ Response 200 (application/json)
+    + Attributes (File)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File Annotations [/files/{id}/annotations]
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+
+### Get File Annotations [GET]
+
++ Response 200 (application/json)
+    + Attributes (File Annotations)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File Archives [/files/{id}/archives]
+
+_[XXX The data payload was redone since it seems to have diverged from the archivefile table record upon which it should have been based.]_
+
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+### Get File Archives [GET]
+
++ Response 200 (application/json)
+    + Attributes (File Archives)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File Videos [/files/{id}/videos]
+
+Get the file video data for a given FileID showing both the original and sampled low-res video information.
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+### Get File Videos [GET]
+
++ Response 200 (application/json)
+    + Attributes (File Videos)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File High Res Video [/files/{id}/videos/high]
+
+To specify the high-res (original) only, use the _high_ option.
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+### Get High Res Video [GET]
+
++ Response 200 (application/json)
+    + Attributes (File High Res Video)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File Audio [/files/{id}/audio]
+
+_[XXX Not plural 'audios']_ 
+Get the file audio data for a given FileID showing both the original and sampled low-res audio information.
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+### Get File Audio [GET]
+
++ Response 200 (application/json)
+    + Attributes (File Audio)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File High Res Audio [/files/{id}/audios/high]
+
+To specify the original only, use the _high_ option.
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+### Get High Res Video [GET]
+
++ Response 200 (application/json)
+    + Attributes (File High Res Audio)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File Asset Timer Info [/files/{id}/assettimer]
+
+Get the file asset timer status for a given FileID.
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+### Get File Asset Timer Info [GET]
+
++ Response 200 (application/json)
+    + Attributes (File Asset Timer)
+    
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File Comments [/files/{id}/comments]
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+### Get File Comments [GET]
+
++ Response 200 (application/json)
+    + Attributes (File Comments)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## Add a File Comment [/files/{id}/comments{?comment}]
+
+_[XXX Better to post in Body?]_
+Get the file comment data for a given FileID.
+
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+    + comment: My%20Comment! (string) - New Comment
+
+### Add a File Comment [POST]
+
++ Response 201 (application/json)
+    + Attributes (Comment Info)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## Delete a File Comment [/files/{id}/comments/{comment_id}]
+
+_[XXX Here or part of the comment resource?]_
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+    + comment_id: 1 (required, number) - The ID of the comment
+
+### Delete a File Comment [DELETE]
+
++ Response 204 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File History [/files/{id}/history]
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+### Get File History [GET]
+
++ Response 200 (application/json)
+    + Attributes (File History)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File Keywords [/files/{id}/keywords]
+
+Get the file keyword data for a given FileID and using the current user's keyword template.
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+### Get File Keywords [GET]
+
++ Response 200 (application/json)
+    + Attributes (File Keywords)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File Keyword Value [/files/{id}/keywords/{keyword_id}]
+
+Get the file keyword data for a given FileID and using the current user's keyword template.
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+    + keyword_id: 19 (required, number) - The ID of the desired keyword
+
+### Get File Keyword Value [GET]
+
++ Response 200 (application/json)
+    + Attributes (File Keyword Value)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File Spread Links [/files/{id}/spreadlinks]
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+### Get File Links [GET]
+
++ Response 200 (application/json)
+    + Attributes (File Spread Links)
+    
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+
+## File Previews [/files/{id}/previews]
+
+Get the file preview data for a given FileID. Outputs the high-res image, large web image, large spread, small web image and small spread information.
+_[XXX Removed the preview num*Previews variable since that should be derived from the array length]
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+### Get File Previews [GET]
+
++ Response 200 (application/json)
+    + Attributes (File Previews)
+    
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+
+## File Versions [/files/{id}/versions]
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+
+### Get File Versions [GET]
+
++ Response 200 (application/json)
+    + Attributes (File Versions)
+    
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+# Group Path Resource API 
+
+## Path Info [/paths/{id}]
+
+The _paths_ resource represents a directory record in the Venture database.
+
++ Parameters
+    + id: 123 (required, number) -  The Path ID of the directory
+
+### Get Path Info [GET]
+
++ Response 200 (application/json)
+    + Attributes (Path Info)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+
+
+# Group Users Resource API 
+
+The _user_ resource represents a user in the Venture database. Access only for nativeadmin.
+
+## User List [/users]
+
+The list of all users.
+
+### Get User List [GET]
+
+Get the full user list.
+
++ Response 200 (application/json)
+    + Attributes
+        - users (array[User Info])
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## User Info [/users/{id}]
+
+### Get User Info [GET]
+
+Get user info.
+
++ Response 200 (application/json)
+    + Attributes (User Info)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+
+# Group Groups Resource API
+
+The _group_ resource represents a group in the Venture database. Access only for nativeadmin.
+
+## Group List [/groups]
+
+The list of all groups.
+
+### Get Group List [GET]
+
+Get the full group list.
+
++ Response 200 (application/json)
+    + Attributes
+        - groups (array[Group Info])
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## Group Info [/groups/{id}]
+
+### Get Group Info [GET]
+
+Get group info.
+
++ Response 200 (application/json)
+    + Attributes (Group Info)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+
+# Group Keywords Resource API
+  The _keyword_ resource represents a keyword record in the Venture database. 
+
+## Keyword List [/keywords]
+
+The list of all keywords.
+
+### Get Keyword List [GET]
+
+Get the full keyword list.
+
++ Response 200 (application/json)
+    + Attributes
+        - keywords (array[Keyword Info])
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## Keyword Info [/keywords/{id}]
+
+### Get Keyword Info [GET]
+
+Get keyword info.
+
++ Response 200 (application/json)
+    + Attributes (Keyword Info)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+# Group Collections Resource API
+
+
+# Group Volumes Resource API
+
+The _volumes_ resource is the volumes in the Venture database. 
+
+
+## Volume List [/volumes]
+
+The list of all volumes.
+
+### Get Volume List [GET]
+
+Get the full volume list.
+
++ Response 200 (application/json)
+    + Attributes
+        - volumes (array[Volume Info])
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## Volume Info [/volumes/{id}]
+
+### Get Volume Info [GET]
+
+Get volume info.
+
++ Response 200 (application/json)
+    + Attributes (Volume Info)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+
+
+# Group Archive Action API
+
+The _archive_ resource allows you to archive a file or directory as well as restore archived items.
+
+Quick Reference:
+
+Archive a file [POST]:<br>
+*resource=archive&path=/path/to/dir&name=MyMedia&an=123456&ad=1234567890*
+*resource=archive&path=/path/to/file&name=MyMedia&isfile&an=123456&ad=1234567890*<br><br>
+
+Restore a file [GET]:<br>
+*resource=archive&restore&path=/volume/assets/file.jpg*
+
+Notes:
+* _ksrm_ does support -r which will delete folders
+* Use *boolean* true/false instead of integer booleans
+* *mediaName* instead of 'name'?
+* *archiveNumber* instead of 'an'?
+* *archiveDate* instead of 'ad'?
+
+## Archive a file/folder [/archive{?path,isfile,name,an,ad,isfile,dodelete}]
+
+
+Archives a file or folder to the named media.
+
+### Archive a file/folder [POST]
+
+Archives a file/folder.
+
++ Parameters
+    + path: /home/jobs/archive (string) - Path to file or directory to archive
+    + name: MyMedia (string) - Name of the archive media to use
+    + an: 123456 (integer) - archive number
+    + ad: 1234567890 (integer) - archive date
+    + isfile: 1 (optional, boolean) - 0 if archiving a folder, 1 if archiving a file
+    + dodelete: false (optional, boolean) - true to remove the file after archiving
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+
+        resource=archive but archive parameter not specified
+        resource=archive&archive must specify a mediaName
+        resource=archive&archive specify a file or dir to archive
+        
+
+
+## Restore a file/folder [/restore{?path,altlocation}]
+={path}&altlocation={altlocation}]
+
+Restores a file or folder to its original or alternate location
+
+### Restore a file/folder [PUT]
+
+Restores a file/folder.
+
++ Parameters
+    + path: /home/jobs/archive (string, required) - Path to file or directory to restore
+    + altlocation: /home/jobs/restore (string) - Specify an alternate restore location (optional)
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+
+        resource=archive but restore parameter not specified
+        resource=archive&restore please specify an archive file to restore
+        
+
+
+# Group Archive Media API
+
+The _archivemedia_ resource allows you to create, update, list and delete archive media entries.
+
+Quick Reference:
+
+Show all archive media sets:<br>
+<strong> [GET] /archivemedia</strong><br><br>
+
+Show archive media sets with the id's 1, 2 and 3:<br>
+<strong> [GET] /archivemedia/1,2,3</strong>
+<br><br>
+
+Create the archive media set named 'MyMedia':<br>
+<strong> [POST] /archivemedia</strong>
+<br><br>
+
+Update the archive media with the id of 1:<br>
+<strong> [PUT] /archivemedia/1?location=LocationY&online=0&offline=0&nearline=4</strong>
+<br><br>
+Delete the archive media with the id of 1:<br>
+<strong> [DELETE] /archivemedia/1</strong>
+<br><br>
+
+
+## Show all Archive Media Sets [/archivemedia]
+
+Shows all available archive media sets.
+
+### Show all Archive Media Sets [GET]
+
++ Response 200 (application/json)
+
+        {
+            "archiveMedia": [
+                {
+                    "id": [integer],
+                    "mediaName": [string],
+                    "online": [integer],
+                    "nearline": [integer],
+                    "offline": [integer]
+                    "location": [string]
+                },
+                {
+                    "id": [integer],
+                    "mediaName": [string],
+                    "online": [integer],
+                    "nearline": [integer],
+                    "offline": [integer]
+                    "location": [string]
+                }]
+        }
+
++ Response 400 (application/json)
+
+        resource=archivemedia, both id and name specified, please use only one of these
+        resource=archivemedia, cannot locate requested archive media entry
+
+
+## Show Archive Media Sets via id [/archivemedia/{id}]
+
+Shows archive media set(s) with the given id(s). A comma delimited list may also be supplied to show multiple sets.
+
+### Show Archive Media Sets via id [GET]
+
+Show information about archive media set with the specified id(s).
+
++ Parameters
+    + id: 12 (integer, required) - Name of the media set to show
+    
++ Response 200 (application/json)
+
+        {
+            "archiveMedia": [
+                {
+                    "id": [integer],
+                    "mediaName": [string],
+                    "online": [integer],
+                    "nearline": [integer],
+                    "offline": [integer]
+                    "location": [string]
+                }]
+        }
+
++ Response 400 (application/json)
+
+        resource=archivemedia, both id and name specified, please use only one of these
+        resource=archivemedia, cannot locate requested archive media entry
+
+
+## Create Archive Media Set [/archivemedia{?name,location,online,offline,nearline}]
+
+Creates an Achive Media entry. _[XXX Return code should be 201]_
+
+### Create Archive Media Set [POST]
+
+Creates an archive media set.
+
++ Parameters
+    + name: Media123 (string) - Name of the media set to create
+    + location: Shelf1 (string) - Location of the media set
+    + online: 0 (integer) - online integer value
+    + offline: 0 (integer) - offline integer value
+    + nearline: 1 (integer) - nearline integer value
+
++ Response 201 (application/json)
+
+        Return the ID of the new media set.
+        
+        {
+            "id": [integer]
+        }
+
++ Response 400 (application/json)
+
+        *Look at separate response codes*
+        resource=archivemedia but no mediaName parameter supplied
+        resource=archivemedia media with this name already exists
+        resource=archivemedia failed to create media archive entry
+
+
+## Update Archive Media Set via id [/resource=archivemedia{?id,location,online,offline,nearline}]
+={id}&location={location}&online={online}&offline={offline}&nearline={nearline}]
+
+### Update Archive Media Set via id [PUT]
+
+Update archive media set via the archive media id. Note only the location, offline, online and nearline parameters can be updated. The name of the media cannot change.
+
++ Parameters (Achive Media Info)
+    + id (integer) - id of the media set to update
+    + location (string) - Location of the media set (optional)
+    + online (integer) - online integer value
+    + offline (integer) - offline integer value
+    + nearline (integer) - nearline integer value
+    
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+
+        resource=archivemedia, error updating archivemedia
+        resource=archivemedia, please specify only one media id
+        resource=archivemedia, specify an archivemedia name or id to update
+
+
+## Update Archive Media Set via name [/resource=archivemedia&create&name={name}&location={location}&online={online}&offline={offline}&nearline={nearline}]
+
+### Update Archive Media Set via name [PUT]
+
+Update archive media set via the archive media name. Note only the location, offline, online and nearline parameters can be updated. The name of the media cannot change.
+
++ Parameters
+    + name (string) - Name of the media set to update
+    + location (string) - Location of the media set
+    + online (integer) - online integer value
+    + offline (integer) - offline integer value
+    + nearline (integer) - nearline integer value
+    
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+
+        resource=archivemedia, error updating archivemedia
+        resource=archivemedia, please specify only one media id
+        resource=archivemedia, specify an archivemedia name or id to update
+        
+
+## Delete Archive Media Set via id [/resource=archivemedia&id={id}]
+     
+### Delete Archive Media Information [DELETE]
+
+Delete an archive media set via an id. A comma delimited list may also be supplied to delete multiple sets.
+
++ Parameters
+    + id (integer) - id of the media set to delete
+
++ Response 200 (application/json)
+
+        Returns a list of deleted media set id's 
+        {
+          "id": [
+            1,
+            2
+          ]
+        }
+        
++ Response 400 (application/json)
+
+        resource=archivemedia, specify an archivemedia name or id to delete
+        resource=archivemedia, no media sets to delete
+
+
+## Delete Archive Media Set via name [/resource=archivemedia&name={name}]
+     
+### Delete Archive Media Information [DELETE]
+
+Delete an archive media set via a name.
+
++ Parameters
+    + name (string) - Name of the media set to delete
+
++ Response 200 (application/json)
+
+        Returns the deleted media set id 
+        {
+          "id": 11
+        }
+
++ Response 400 (application/json)
+
+        resource=archivemedia, specify an archivemedia name or id to delete
+        resource=archivemedia, no media sets to delete
+
+
+
+# Data Structures
+
+## File (object)
+- fileID: 123 (number, required)
+- fileInfo (File Info)
+
+    
+## File Info (object)
++ parentFileID:120 (number, required)
++ filename: Testfile.pdf (string, required)
++ filenameDecomposed: Testfile.pdf (string)
++ pathID: 12 (number, required)
++ path: /home/files (string, required)
++ pathUTF8mac: /home/files (string)
++ type: `PDF ` (string, required)
++ creator: CARO (string, required)
++ length: 493488 (number)
++ isDir: false (boolean)
++ createDate: 1297053580 (number)
++ modifyDate: 1297055858 (number)
++ accessDate: 1400021440 (number)
++ finderFlags: 0 (number)
++ online: true (boolean)
++ inBasket: false (boolean)
++ mediaType: image, cad, movie, audio, html, office (enum)
+
+
+
+## File Annotations (object) 
+- fileID: 123 (number, required)
+- annotations (array[Annotation Struct])
+
+    
+## Annotation Struct (object)
+- id: 3 (number, required) - Annotation ID
+- revision: 0 (number, required) - Revision Number
+- createdUser: wnv (string) - User Name
+- createdDate: 1422655209 (number) - Create Date (Unix Time )
+- createdIP: 1694607552 (number) - Remote Address 
+- previewDate: 1419379434 (number) - Preview Generation Date (Unix Time)
+- previewIsCurrent: true (boolean) - [XXX boolean?] 
+- page: 0 (number, required) - Page Number
+- visible: true (boolean) - Visible Flag
+- notes (string) - 
+- comments (array[Annotation Comment])
+- position (Position)
+    - x: 123
+    - y: 33
+- dimensions (Dimensions)
+    - w: 234
+    - h: 111
+- zOrder: 109 (number) - Z-axis Order
+- zoom: 1 (number) - Zoom Scaling
+- properties (Annotation Properties, required)
+    - type: Rect
+    - width: 2
+    - style: solid
+    - fill (RGB Alpha)
+    - stroke (RGB Color)
+
+
+## Annotation Comment (object) 
+- id: 1 (number, required) - Annotation Comment ID
+- jobId: 0 (number) 
+- stageId: 0 (number)
+- taskId: 0 (number)
+- userId: 3 (number, required)
+- username (string, required)
+- time (number) - Unixtime
+- done (boolean) 
+- comment (string)
+
+
+## Annotation Properties (object)
+- type (enum, required)
+    - Text (string)
+    - Rect (string)
+    - Stamp (string)
+    - Sketch (string)
+- width (number, optional) - (Rect, Sketch)
+- style (enum, optional) - [XXX: Missing options!] (Rect)
+    - solid (string)
+- fill (RGB Alpha, optional) - Fill Color (Rect)
+- stroke (RGB Color, optional) - Stroke Color (Rect)
+- contents: Sample Text (string, optional) - Text Content (Text)
+- font: `Sans-Serif` (string, optional) - Font Name (Text)
+- size: 12 (number, optional) - Font Size (Text)
+- color (RGB Color, optional) - Text/Drawing Color (Text, Sketch)
+- italic (boolean, optional) - [XXX boolean?] (Text)
+- bold (boolean, optional) - [XXX boolean?] (Text)
+- justification (enum, optional) - Text Justification (Text)
+    - center (string)
+    - left (string)
+    - right (string)
+    - justified (string) - Correct? 
+- stamp: Approved (string, optional) - Stamp Name (Stamp)
+- path (string, optional) - Drawing Path Encoded Binary Data (Sketch)
+
+
+
+## File Archives (object)
+- fileID: 123 (number, required)
+- archives (array[Archive Info])
+
+
+## Archive Info (object)
+- archiveDate: 1422655209 (number) - Unix Time Archive Date
+- archiveNumber: 23 (number) - Archive Media number
+- mediaID: 123 (number) - [XXX Use the Media Object?]
+- size: 234234 (number) - Archive Size
+- thumbOffset: 123234 (number) - Archive Offset
+- thumbSize: 34343 (number) - Thumbnail Size
+
+
+## Archive Media (object)
+- id: 1 (number, required)  - Archive Media ID
+- mediaName: Tape 1234 (string) - Media Name
+- online: 1 (number) - Online State Flag 
+- nearline(Nearline State) - Nearline State Flag
+    - 4 (number) 
+- offline: 0 (number) - Offline State Flag
+- location: Off Site Storage (string) - Location String
+
+
+## Nearline State (enum)
+- 1 (number) - FlashNet
+- 2 (number) - Telescope
+- 3 (number) - OnBrand
+- 4 (number) - OnFile
+- 5 (number) - CreativeHub
+
+
+## Position (object)
+- x (number, required)
+- y (number, required)
+
+
+## Dimensions (object)
+- w (number, required)
+- h (number, required)
+
+
+## RGB Color (object)
+- r: 144 (number, required)
+- g: 72 (number, required)
+- b: 72 (number, required)
+
+
+## RGB Alpha (object) 
+- a: 255 (number)
+- r: 0 (number)
+- g: 0 (number)
+- b: 0 (number)
+
+
+## File Videos (object)
+- fileID: 123 (number, required)
+- videoInfo (array[Video Info])
+
+## File High Res Video (object)
+- fileID: 123 (number, required)
+- videoInfo (Video Info)
+
+## Video Info (object)
+- id: 0 (number, required) - Video ID 
+- xinetFormat: high (string, optional) - Xinet preview format
+- userDescription (string, optional) - Description
+- format: `QuickTime MOV - mov,mp4,m4a,3gp,3g2,mj2` (string) - Video format
+- extension: .mov (string) - Filename Extension
+- width: 848 (number) - Frame width
+- height: 480 (number) - Frame height
+- durationStr: 0:00:30 (string) - Duration in "00:00:00" format
+- durationMS: 30030 (number) - Millisecond duration
+- totalBitrate: 830 (number) - Total bitrate
+- codec: h264 (string) - Codec
+- pixelFormat: yuv420p (string) - Pixel format
+- dispRationNum: 1 (number) - Display ratio numerator
+- dispRationDen: 1 (number) - Displahy ratio denominator
+- frameRate: 23.98 (number) - Frame rate
+- bitrate: 692 (number) - Bitrate
+- dataSize: 3117851 (number) - Data size in bytes
+- quality: 0 (number) - Quality
+- language: eng (string, optional) - Language
+
+
+## File Audio (object)
+- fileID: 123456 (number, required)
+- audioInfo (array[Audio Info])
+
+## File High Res Audio (object)
+- fileID: 123456 (number, required)
+- audioInfo (Audio Info)
+
+## Audio Info (object)
+- id: 0 (number, required) - Audio ID
+- videoID: 0 (number) - Video source ID
+- stream: 0 (number) - Audio stream
+- codec: "mp3" (string) - Codec
+- sampleRate: 44100 (number) - Sample rate
+- channels: 2 (number) - Number of channels
+- bitrate: 215 (number) - Bitrate
+- language: "eng" (string, optional) - 
+
+
+
+## File Asset Timer (object)
+- fileID: 123456 (number, required)
+- assetTimer (Asset Timer Info)
+
+## Asset Timer Info (object)
+- available: true (boolean)
+- childStatus: true (boolean)
+- folderStatus: true (boolean)
+
+
+## File Comments (object)
+- fileID: 123 (number, required)
+- comments (array[Comment Info])
+
+## Comment Info (object)
+- id: 1 (number, required) - Comment ID
+- userID: 3 (number) - Author user ID
+- date: 1424210280 (number) - Unix time stamp
+- type: text (enum) - Comment type. Currently only 'text'
+    - text (string)
+- comment: test comment (string) - Comment string
+
+
+## File History (object)
+- fileID: 123456 (number, required)
+- history (array[History Info])
+
+## History Info (object)
+- event: 3 (number) - Event Type
+- dbTime: 1419379424 (number) - Unix timestamp
+- user: nativeadmin (string) - User name
+- IPAddr (string, optional) -  
+- action: `Object Name: [NULL] -> []` (string, optional) - 
+
+
+## File Keywords (object) 
+- fileID: 123 (number, required)
+- keywords (array[Keyword Value])
+
+## File Keyword Value (object) 
+- fileID: 123 (number, required)
+- *19*: Test Value (string)
+
+## Keyword Value (object)
+- *19*: Test Value (string)
+
+
+## File Spread Links (object)
+- fileID: 123 (number, required)
+- spreadLinks (array[Spread Link Info])
+
+## Spread Link Info (object)
+- isLinked: true (boolean)
+- spreadNum: 1 (number) - 
+- isDuplicate: false (boolean)
+- top: 10 (number) - 
+- bottom: 200 (number) - 
+- left: 10 (number) - 
+- right: 150 (number) - 
+- xOffset: 40 (number) - 
+- yOffset: 40 (number) - 
+- sequence: 1 (number) - 
+- level: 1 (number) - 
+
+
+## File Previews (object) 
+- fileID: 123
+- previews 
+    - highRes (Preview Info)
+    - largeWeb (Preview Info, optional)
+    - largeSpreads (array[Spread Preview Info], optional)
+    - smallWeb (Preview Info, optional)
+    - smallSpreads (array[Spread Preview Info], optional)
+
+## Preview Info (object)
+- width:720 (number) - Image Width
+- height: 406 (number) - Image Height
+- resolution: 72.000000 (number) - Resolution
+- fileSize: 50520 (number) - File Size in bytes
+- colorSpace: "RGB" (string) - Color Space
+- imageType: "JPEG" (string) - Image Type
+
+
+## Spread Preview Info (object)
+- spreadNum: 0 (number) - Spread Number
+- top: 0 (number) - Spread Image Coordinates
+- bottom: 406 (number) - 
+- left: 0 (number) - 
+- right: 720 (number) - 
+- preferred: false (boolean) - Is the Preferred Preview
+- frameOffset: 30560 (number) - Frame Offset
+- annotationCount: 4 (number) - Annotation Count
+
+
+## File Versions (object)
+- fileID: 123 (number)
+- versions (array[Version Info])
+
+## Version Info (object)
+- fileID: 124 (number) - Version File ID
+- pathID: 12 (number) - Version Folder Path ID
+- userName: wnv (string) - User Name
+- lastSave: 1422655209 (number) - Last save date (Unix Time)
+
+
+## Path Info (object) 
+- pathID: 4 (number, required) - Path ID
+- fileID: 3 (number, required) - File ID
+- name: images (string, required) - Path Name
+- path: /Share/wnv/images (string, required) - Path
+- pathUtf8Mac: /Share/wnv/images (string) - OS X UTF8 Path 
+- comment (string, optional) - Comment
+- volName: wnvyy web (string, required) - Volume Name
+- volPath: /Share/wnv (string, required) - Volume Path 
+- inBasket: true (boolean) - Basket Flag
+- online: true (boolean) - Online Flag
+- volumeID: 2 (number) - Volume ID
+- filenameFulltext: 1 (number) - 
+- commentFulltext: 0 (number) - 
+- trigsets (array) - Array of Active Trigger Sets
+- hasTriggers: false (boolean) - 
+- dirCount: 0 (number) - Folder Count
+- fileCount: 0 (number) -  File Count
+
+
+## User Info (object)
+- userID: 1 (number, required) - User ID
+- userName: wnv (string, required) - User Name
+- salutation (string, optional) - Salutation
+- first (string, optional) - First Name
+- last (string, optional) - Last Name
+- title (string, optional) - Title
+- dept (string, optional) - Department
+- company (string, optional) - Company Name
+- address (string, optional) - Address
+- city (string, optional) - City
+- state (string, optional) - State
+- zip (string, optional) - Postal Code
+- country (string, optional) - Country
+- phone (string, optional) - Phone Number
+- mobile (string, optional) - Mobile Phone Number
+- fax (string, optional) - Fax Number
+- email (string, optional) - Email Address
+- notes (string, optional) - Notes
+- privileges: 0 (number, required) - User Privileges
+- primaryGroupID: 500 (number, required) - User Primary Group ID
+- templateID: 1 (number, required) - User Keyword Template ID
+- permsetID: 1 (number, required) - User Keyword Permset ID
+- trigsetID: 0 (number, optional) - User Triggerset ID
+
+
+## Group Info (object)
+- groupID: 1 (number, required) - Group ID
+- groupName: wnv (string, required) - Group Name
+- description (string, optional) - Notes
+- templateID: 1 (number, required) - Group Keyword Template ID
+- permsetID: 1 (number, required) - Group Keyword Permset ID
+- trigsetID: 0 (number, optional) - Group Triggerset ID
+
+
+## Keyword Info (object) 
+- keywordID: 1 (number, required) - Keyword ID
+- order: 0 (number) - Template rank
+- editable: 3 (number, required) - Editable flag
+- name: Object Name (number, required) - Keyword name
+- description: IPTC-NAA record (string) - Keyword description
+- type: 253 (number, required) - MySQL data type
+- size: 255 (number) - Keyword data size
+- columns: 60(number) - Input field columns
+- rows: 1 (number) - Input field rows
+- precision: 0 (number) - Floating point precision
+- flags: 0  (number) - Keyword flags ???
+- display: 0 (number) - Display flags
+- hidden: 0 (number) - Hidden flag
+- valuesFlag: 0 (number) - Value flag
+- indexFlag: 1 (number) - Index flag
+- permFlag: 3 (number) - Permission flag
+- search: 1 (number) - Search flag
+- limited (number) - Popup flag
+- fixed (number) - Fixed keyword flag 
+- builtIn: true (boolean) - Built-in fixed flag
+- showData (boolean) - Show data flag
+- upload (boolean) - Upload flag
+- uploadRequired (boolean) - Required on upload flag
+- pushRequired (boolean) - Required on pushtodam flag
+- unique (boolean) - Is Unique flag
+- facet (boolean) - Faceted flag
+
+
+## Volume Info (object)
+- fileID: 2 (number) - 
+- fileName: wnvyy web (string) - 
+- filePath: /Share/wnv (string) - 
+- filePathUtf8mac: /Share/wnv (string) - 
+- isVentureVolume: true (boolean) - 
+- isGlobalVolume: true (boolean) - 
+- basket: true (boolean) - 
+- archives: true (boolean) - 
+- iconView: false (boolean) - 
+- shortView: true (boolean) - 
+- longView: true (boolean) - 
+- showFpoInfo: true (boolean) - 
+- showDates: true (boolean) - 
+- changeComment: true (boolean) - 
+- downloadHighRes: true (boolean) - 
+- downloadFpo: true (boolean) - 
+- upload: true (boolean) - 
+- imageOrder: true (boolean) - 
+- fileAdmin: true (boolean) - 
+- defaultView: short (Browse View) - 
+- allowNonImages: false (boolean) - 
+- changeKeywords: true (boolean) - 
+- showComments: true (boolean) - 
+- allowLowVideo: true (boolean) - 
+- fpVolumeName: wnvyy (string) - 
+- fpVolumePath: /Share/wnv (string) - 
+
+## Browse View (enum)
+- icon 
+- short
+- long
+
+## Error Message (object)
++ error (string, required)

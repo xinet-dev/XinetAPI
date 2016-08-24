@@ -662,7 +662,7 @@ Get volume info.
 
 + Request Success
     + Parameters
-        + id: 1
+        + id: 2
 
 + Response 200 (application/json)
     + Attributes (Volume Info)
@@ -728,14 +728,14 @@ Get list of all Media Archive.
 
 Shows archive media set(s) with the given id(s). A comma delimited list may also be supplied to show multiple sets.
 
++ Parameters
+    + id (number, required) - Name of the media set to show or delete
+    
 
 ### Show Archive Media [GET]
 
 Show information about archive media set with the specified id(s).
 
-+ Parameters
-    + id (integer, required) - Name of the media set to show
-    
 + Request Success
     + Parameters
         + id: 12 
@@ -743,9 +743,10 @@ Show information about archive media set with the specified id(s).
 + Response 200 (application/json)
     + Attributes (Archive Media)
 
+
 + Request Malformed
     + Parameters
-         + id: 12
+         + id: foo
 
 + Response 400 (application/json)
     + Attributes (Error Message)
@@ -755,7 +756,7 @@ Show information about archive media set with the specified id(s).
     + Parameters
         + id: 999
 
-+ Response 400 (application/json)
++ Response 422 (application/json)
     + Attributes (Error Message)
         + error: locate requested archive media entry
 
@@ -764,28 +765,40 @@ Show information about archive media set with the specified id(s).
 
 Delete an archive media set via an id. A comma delimited list may also be supplied to delete multiple sets.
 
-+ Parameters
-    + id (integer) - id of the media set to delete
++ Request Success
+    + Parameters
+        + id: 1
 
 + Response 200 (application/json)
     + Attributes
         + id: 1 (number, required)
 
-+ Response 400 (application/json)
++ Request Malformed
+    + Parameters
+         + id: foo
 
-        resource=archivemedia, specify an archivemedia name or id to delete
-        resource=archivemedia, no media sets to delete
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: specify an archivemedia name or id to delete
+
++ Request Not Found
+    + Parameters
+        + id: 999
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: no media sets to delete
 
 
 
 ## Update Archive Media Set [/archivemedia/{id}{?location,online,offline,nearline}]
 
-+ Parameters (Achive Media Info)
-    + id (integer, required) - id of the media set to update
++ Parameters 
+    + id (number, required) - id of the media set to update
     + location (string) - Location of the media set (optional)
-    + online (integer) - online integer value
-    + offline (integer) - offline integer value
-    + nearline (integer) - nearline integer value
+    + online (number) - online integer value
+    + offline (number) - offline integer value
+    + nearline (number) - nearline integer value
 
 ### Update Archive Media Set [PUT]
 
@@ -793,19 +806,31 @@ Update archive media set via the archive media id. Note only the location, offli
 
 + Request Success
     + Parameters
-        + id: 1
-        + location: Shelf1
-        + online: 0
-        + offline: 0
-        + nearline: 1
+        + id: 1 (number)
+        + location: Shelf1 (string)
+        + online: 0 (number)
+        + offline: 0 (number)
+        + nearline: 1 (number)
 
 + Response 200 (application/json)
+    + Attributes
+        + id: 1 (number) 
+
++ Request Malformed
+    + Parameters
+         + id: foo
 
 + Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: error updating archivemedia
 
-        resource=archivemedia, error updating archivemedia
-        resource=archivemedia, please specify only one media id
-        resource=archivemedia, specify an archivemedia name or id to update
++ Request Not Found
+    + Parameters
+        + id: 999 (number)
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: specify an archivemedia name or id to update
 
 
 
@@ -816,19 +841,18 @@ Creates an Achive Media Set. _[XXX Return code should be 201]_
 + Parameters
     + name: Media123 (string, required) - Name of the media set to create
     + location: Shelf1 (string) - Location of the media set
-    + online: 0 (integer) - online integer value
-    + offline: 0 (integer) - offline integer value
-    + nearline: 1 (integer) - nearline integer value
+    + online: 0 (number) - online integer value
+    + offline: 0 (number) - offline integer value
+    + nearline: 1 (number) - nearline integer value
+
+
 ### Create Archive Media Set [POST]
 
 
 + Response 201 (application/json)
+    + Attributes
+        + id: 1 (number)
 
-        Return the ID of the new media set.
-        
-        {
-            "id": [integer]
-        }
 
 + Response 400 (application/json)
 
@@ -862,22 +886,25 @@ Notes:
 
 ## Archive a file/folder [/archive{?path,isfile,name,an,ad,isfile,dodelete}]
 
-
 Archives a file or folder to the named media.
+
++ Parameters
+    + path: /home/jobs/archive (string) - Path to file or directory to archive
+    + name: MyMedia (string) - Name of the archive media to use
+    + an: 123456 (number) - archive number
+    + ad: 1234567890 (number) - archive date
+    + isfile: 1 (optional, boolean) - 0 if archiving a folder, 1 if archiving a file
+    + dodelete: false (optional, boolean) - true to remove the file after archiving
 
 ### Archive a file/folder [POST]
 
 Archives a file/folder.
 
-+ Parameters
-    + path: /home/jobs/archive (string) - Path to file or directory to archive
-    + name: MyMedia (string) - Name of the archive media to use
-    + an: 123456 (integer) - archive number
-    + ad: 1234567890 (integer) - archive date
-    + isfile: 1 (optional, boolean) - 0 if archiving a folder, 1 if archiving a file
-    + dodelete: false (optional, boolean) - true to remove the file after archiving
 
 + Response 200 (application/json)
+    + Attributes
+        + id: 1 (number, required) - Return the ID of the new archive
+
 
 + Response 400 (application/json)
 
@@ -888,19 +915,21 @@ Archives a file/folder.
 
 
 ## Restore a file/folder [/restore{?path,altlocation}]
-={path}&altlocation={altlocation}]
 
 Restores a file or folder to its original or alternate location
-
-### Restore a file/folder [PUT]
-
-Restores a file/folder.
 
 + Parameters
     + path: /home/jobs/archive (string, required) - Path to file or directory to restore
     + altlocation: /home/jobs/restore (string) - Specify an alternate restore location (optional)
 
+
+### Restore a file/folder [PUT]
+
+Restores a file/folder.
+
 + Response 200 (application/json)
+    + Attributes
+        + id: 1 (number, required) - Return the ID of the new archive
 
 + Response 400 (application/json)
 
@@ -1110,11 +1139,11 @@ Restores a file/folder.
 - id: 0 (number, required) - Audio ID
 - videoID: 0 (number) - Video source ID
 - stream: 0 (number) - Audio stream
-- codec: "mp3" (string) - Codec
+- codec: mp3 (string) - Codec
 - sampleRate: 44100 (number) - Sample rate
 - channels: 2 (number) - Number of channels
 - bitrate: 215 (number) - Bitrate
-- language: "eng" (string, optional) - 
+- language: eng (string, optional) - 
 
 
 
@@ -1197,8 +1226,8 @@ Restores a file/folder.
 - height: 406 (number) - Image Height
 - resolution: 72.000000 (number) - Resolution
 - fileSize: 50520 (number) - File Size in bytes
-- colorSpace: "RGB" (string) - Color Space
-- imageType: "JPEG" (string) - Image Type
+- colorSpace: RGB (string) - Color Space
+- imageType: JPEG (string) - Image Type
 
 
 ## Spread Preview Info (object)
@@ -1279,10 +1308,10 @@ Restores a file/folder.
 
 
 ## Keyword Info (object) 
-- keywordID: 1 (number, required) - Keyword ID
+- keywordID: 19 (number, required) - Keyword ID
 - order: 0 (number) - Template rank
 - editable: 3 (number, required) - Editable flag
-- name: Object Name (number, required) - Keyword name
+- name: Byline (number, required) - Keyword name
 - description: IPTC-NAA record (string) - Keyword description
 - type: 253 (number, required) - MySQL data type
 - size: 255 (number) - Keyword data size

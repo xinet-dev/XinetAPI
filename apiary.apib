@@ -714,37 +714,17 @@ Delete the archive media with the id of 1:<br>
 
 ## Archive Media Sets [/archivemedia]
 
-Archive media sets.
+Archive media.
 
 ### Show all Archive Media Sets [GET]
 
-Get list of all Media Archive sets.
+Get list of all Media Archive.
 
 + Response 200 (application/json)
-
-        {
-            "archiveMedia": [
-                {
-                    "id": [integer],
-                    "mediaName": [string],
-                    "online": [integer],
-                    "nearline": [integer],
-                    "offline": [integer]
-                    "location": [string]
-                },
-                {
-                    "id": [integer],
-                    "mediaName": [string],
-                    "online": [integer],
-                    "nearline": [integer],
-                    "offline": [integer]
-                    "location": [string]
-                }]
-        }
+    + Attributes (array[Archive Media])
 
 
-
-## Show Archive Media Sets via id [/archivemedia/{id}]
+## Show Archive Media Sets [/archivemedia/{id}]
 
 Shows archive media set(s) with the given id(s). A comma delimited list may also be supplied to show multiple sets.
 
@@ -798,7 +778,7 @@ Delete an archive media set via an id. A comma delimited list may also be suppli
 
 
 
-## Update Archive Media Set via id [/archivemedia/{id}{?location,online,offline,nearline}]
+## Update Archive Media Set [/archivemedia/{id}{?location,online,offline,nearline}]
 
 + Parameters (Achive Media Info)
     + id (integer, required) - id of the media set to update
@@ -807,7 +787,7 @@ Delete an archive media set via an id. A comma delimited list may also be suppli
     + offline (integer) - offline integer value
     + nearline (integer) - nearline integer value
 
-### Update Archive Media Set via id [PUT]
+### Update Archive Media Set [PUT]
 
 Update archive media set via the archive media id. Note only the location, offline, online and nearline parameters can be updated. The name of the media cannot change.
 
@@ -856,47 +836,6 @@ Creates an Achive Media Set. _[XXX Return code should be 201]_
         resource=archivemedia but no mediaName parameter supplied
         resource=archivemedia media with this name already exists
         resource=archivemedia failed to create media archive entry
-
-
-### Update Archive Media Set via name [PUT]
-
-Update archive media set via the archive media name. Note only the location, offline, online and nearline parameters can be updated. The name of the media cannot change.
-
-+ Parameters
-    + name (string) - Name of the media set to update
-    + location (string) - Location of the media set
-    + online (integer) - online integer value
-    + offline (integer) - offline integer value
-    + nearline (integer) - nearline integer value
-    
-+ Response 200 (application/json)
-
-+ Response 400 (application/json)
-
-        resource=archivemedia, error updating archivemedia
-        resource=archivemedia, please specify only one media id
-        resource=archivemedia, specify an archivemedia name or id to update
-        
-
-### Delete Archive Media Information [DELETE]
-
-Delete an archive media set via a name.
-
-+ Parameters
-    + name (string) - Name of the media set to delete
-
-+ Response 200 (application/json)
-
-        Returns the deleted media set id 
-        {
-          "id": 11
-        }
-
-+ Response 400 (application/json)
-
-        resource=archivemedia, specify an archivemedia name or id to delete
-        resource=archivemedia, no media sets to delete
-
 
 
 

@@ -24,12 +24,25 @@ so I've removed the array wrap and just returned the File object.]_
 
 ### Get File Info [GET]
 
++ Request Success
+    + Parameters
+        + id: 123
+
 + Response 200 (application/json)
     + Attributes (File)
+
+
++ Request Malformed
+    + Parameters
+        + id: ABC
 
 + Response 400 (application/json)
     + Attributes (Error Message)
         + error: Malformed Request
+
++ Request Not Found
+    + Parameters
+        + id: 9999
 
 + Response 422 (application/json)
     + Attributes (Error Message)
@@ -39,10 +52,13 @@ so I've removed the array wrap and just returned the File object.]_
 ## File Annotations [/files/{id}/annotations]
 
 + Parameters
-    + id: 123 (required, number) - The File ID of the asset.
-
+   + id: 123 (required, number) - The File ID of the asset.
 
 ### Get File Annotations [GET]
+
++ Request Success
+    + Parameters
+        + id: 123
 
 + Response 200 (application/json)
     + Attributes (File Annotations)
@@ -66,6 +82,10 @@ _[XXX The data payload was redone since it seems to have diverged from the archi
 
 ### Get File Archives [GET]
 
++ Request Success
+    + Parameters
+        + id: 123
+
 + Response 200 (application/json)
     + Attributes (File Archives)
 
@@ -87,6 +107,10 @@ Get the file video data for a given FileID showing both the original and sampled
 
 ### Get File Videos [GET]
 
++ Request Success
+    + Parameters
+        + id: 123
+
 + Response 200 (application/json)
     + Attributes (File Videos)
 
@@ -107,6 +131,10 @@ To specify the high-res (original) only, use the _high_ option.
     + id: 123 (required, number) - The File ID of the asset.
 
 ### Get High Res Video [GET]
+
++ Request Success
+    + Parameters
+        + id: 123
 
 + Response 200 (application/json)
     + Attributes (File High Res Video)
@@ -130,6 +158,10 @@ Get the file audio data for a given FileID showing both the original and sampled
 
 ### Get File Audio [GET]
 
++ Request Success
+    + Parameters
+        + id: 123
+
 + Response 200 (application/json)
     + Attributes (File Audio)
 
@@ -150,6 +182,10 @@ To specify the original only, use the _high_ option.
     + id: 123 (required, number) - The File ID of the asset.
 
 ### Get High Res Video [GET]
+
++ Request Success
+    + Parameters
+        + id: 123
 
 + Response 200 (application/json)
     + Attributes (File High Res Audio)
@@ -172,6 +208,10 @@ Get the file asset timer status for a given FileID.
 
 ### Get File Asset Timer Info [GET]
 
++ Request Success
+    + Parameters
+        + id: 123
+
 + Response 200 (application/json)
     + Attributes (File Asset Timer)
     
@@ -190,6 +230,10 @@ Get the file asset timer status for a given FileID.
     + id: 123 (required, number) - The File ID of the asset.
 
 ### Get File Comments [GET]
+
++ Request Success
+    + Parameters
+        + id: 123
 
 + Response 200 (application/json)
     + Attributes (File Comments)
@@ -255,6 +299,10 @@ _[XXX Here or part of the comment resource?]_
 
 ### Get File History [GET]
 
++ Request Success
+    + Parameters
+        + id: 123
+
 + Response 200 (application/json)
     + Attributes (File History)
 
@@ -275,6 +323,10 @@ Get the file keyword data for a given FileID and using the current user's keywor
     + id: 123 (required, number) - The File ID of the asset.
 
 ### Get File Keywords [GET]
+
++ Request Success
+    + Parameters
+        + id: 123
 
 + Response 200 (application/json)
     + Attributes (File Keywords)
@@ -298,6 +350,10 @@ Get the file keyword data for a given FileID and using the current user's keywor
 
 ### Get File Keyword Value [GET]
 
++ Request Success
+    + Parameters
+        + id: 123
+
 + Response 200 (application/json)
     + Attributes (File Keyword Value)
 
@@ -316,6 +372,10 @@ Get the file keyword data for a given FileID and using the current user's keywor
     + id: 123 (required, number) - The File ID of the asset.
 
 ### Get File Links [GET]
+
++ Request Success
+    + Parameters
+        + id: 123
 
 + Response 200 (application/json)
     + Attributes (File Spread Links)
@@ -340,6 +400,10 @@ _[XXX Removed the preview num*Previews variable since that should be derived fro
 
 ### Get File Previews [GET]
 
++ Request Success
+    + Parameters
+        + id: 123
+
 + Response 200 (application/json)
     + Attributes (File Previews)
     
@@ -359,6 +423,10 @@ _[XXX Removed the preview num*Previews variable since that should be derived fro
     + id: 123 (required, number) - The File ID of the asset.
 
 ### Get File Versions [GET]
+
++ Request Success
+    + Parameters
+        + id: 123
 
 + Response 200 (application/json)
     + Attributes (File Versions)
@@ -382,6 +450,10 @@ The _paths_ resource represents a directory record in the Venture database.
     + id: 123 (required, number) -  The Path ID of the directory
 
 ### Get Path Info [GET]
+
++ Request Success
+    + Parameters
+        + id: 123
 
 + Response 200 (application/json)
     + Attributes (Path Info)
@@ -413,27 +485,38 @@ Get the full user list.
     + Attributes
         - users (array[User Info])
 
-+ Response 400 (application/json)
-    + Attributes (Error Message)
-        + error: Malformed Request
-
-+ Response 422 (application/json)
-    + Attributes (Error Message)
-        + error: Entry not found
 
 
 ## User Info [/users/{id}]
 
+User info.
+
++ Parameters
+    + id (required, number) -  The User ID
+
+
 ### Get User Info [GET]
 
-Get user info.
+Get details of a specific user.
+
++ Request Success
+    + Parameters
+        + id: 3
 
 + Response 200 (application/json)
     + Attributes (User Info)
 
++ Request Malformed
+    + Parameters
+        + id: wnv
+
 + Response 400 (application/json)
     + Attributes (Error Message)
         + error: Malformed Request
+
++ Request Not Found
+    + Parameters
+        + id: 9999
 
 + Response 422 (application/json)
     + Attributes (Error Message)
@@ -457,27 +540,37 @@ Get the full group list.
     + Attributes
         - groups (array[Group Info])
 
-+ Response 400 (application/json)
-    + Attributes (Error Message)
-        + error: Malformed Request
-
-+ Response 422 (application/json)
-    + Attributes (Error Message)
-        + error: Entry not found
 
 
 ## Group Info [/groups/{id}]
+
+Get details on a specific group.
+
++ Parameters
+    + id (required, number) -  The Group ID
 
 ### Get Group Info [GET]
 
 Get group info.
 
++ Request Success
+    + Parameters
+        + id: staff
+
 + Response 200 (application/json)
     + Attributes (Group Info)
+
++ Request Malformed
+    + Parameters
+        + id: *#&$
 
 + Response 400 (application/json)
     + Attributes (Error Message)
         + error: Malformed Request
+
++ Request Not Found
+    + Parameters
+        + id: donner
 
 + Response 422 (application/json)
     + Attributes (Error Message)
@@ -500,27 +593,35 @@ Get the full keyword list.
     + Attributes
         - keywords (array[Keyword Info])
 
-+ Response 400 (application/json)
-    + Attributes (Error Message)
-        + error: Malformed Request
-
-+ Response 422 (application/json)
-    + Attributes (Error Message)
-        + error: Entry not found
-
 
 ## Keyword Info [/keywords/{id}]
+
++ Parameters
+    + id (required, number) -  The Keyword ID
+
 
 ### Get Keyword Info [GET]
 
 Get keyword info.
 
++ Request Success
+    + Parameters
+        + id: 19
+
 + Response 200 (application/json)
     + Attributes (Keyword Info)
+
++ Request Malformed
+    + Parameters
+        + id: Byline
 
 + Response 400 (application/json)
     + Attributes (Error Message)
         + error: Malformed Request
+
++ Request Not Found
+    + Parameters
+        + id: 9999
 
 + Response 422 (application/json)
     + Attributes (Error Message)
@@ -528,6 +629,7 @@ Get keyword info.
 
 
 # Group Collections Resource API
+
 
 
 # Group Volumes Resource API
@@ -547,31 +649,276 @@ Get the full volume list.
     + Attributes
         - volumes (array[Volume Info])
 
-+ Response 400 (application/json)
-    + Attributes (Error Message)
-        + error: Malformed Request
-
-+ Response 422 (application/json)
-    + Attributes (Error Message)
-        + error: Entry not found
-
 
 ## Volume Info [/volumes/{id}]
+
++ Parameters
+    + id (required, number) -  The Volume ID
+
 
 ### Get Volume Info [GET]
 
 Get volume info.
 
++ Request Success
+    + Parameters
+        + id: 1
+
 + Response 200 (application/json)
     + Attributes (Volume Info)
+
++ Request Malformed
+    + Parameters
+        + id: volume
 
 + Response 400 (application/json)
     + Attributes (Error Message)
         + error: Malformed Request
 
++ Request Not Found
+    + Parameters
+        + id: 9999
+
 + Response 422 (application/json)
     + Attributes (Error Message)
         + error: Entry not found
+
+
+
+
+
+# Group Archive Media API
+
+The _archivemedia_ resource allows you to create, update, list and delete archive media entries.
+
+Quick Reference:
+
+Show all archive media sets:<br>
+<strong> [GET] /archivemedia</strong><br><br>
+
+Show archive media sets with the id's 1, 2 and 3:<br>
+<strong> [GET] /archivemedia/1,2,3</strong>
+<br><br>
+
+Create the archive media set named 'MyMedia':<br>
+<strong> [POST] /archivemedia</strong>
+<br><br>
+
+Update the archive media with the id of 1:<br>
+<strong> [PUT] /archivemedia/1?location=LocationY&online=0&offline=0&nearline=4</strong>
+<br><br>
+Delete the archive media with the id of 1:<br>
+<strong> [DELETE] /archivemedia/1</strong>
+<br><br>
+
+
+## Archive Media Sets [/archivemedia]
+
+Archive media sets.
+
+### Show all Archive Media Sets [GET]
+
+Get list of all Media Archive sets.
+
++ Response 200 (application/json)
+
+        {
+            "archiveMedia": [
+                {
+                    "id": [integer],
+                    "mediaName": [string],
+                    "online": [integer],
+                    "nearline": [integer],
+                    "offline": [integer]
+                    "location": [string]
+                },
+                {
+                    "id": [integer],
+                    "mediaName": [string],
+                    "online": [integer],
+                    "nearline": [integer],
+                    "offline": [integer]
+                    "location": [string]
+                }]
+        }
+
+
+
+## Show Archive Media Sets via id [/archivemedia/{id}]
+
+Shows archive media set(s) with the given id(s). A comma delimited list may also be supplied to show multiple sets.
+
+
+### Show Archive Media Sets via id [GET]
+
+Show information about archive media set with the specified id(s).
+
++ Parameters
+    + id (integer, required) - Name of the media set to show
+    
+
+
++ Request Success
+    + Parameters
+        + id: 12 
+    
++ Response 200 (application/json)
+
+        {
+            "archiveMedia": [
+                {
+                    "id": [integer],
+                    "mediaName": [string],
+                    "online": [integer],
+                    "nearline": [integer],
+                    "offline": [integer]
+                    "location": [string]
+                }]
+        }
+
++ Request Malformed
+    + Parameters
+         + id: 12
+
+    + Body 
+         + name: MyMedia
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: both id and name specified, please use only one of these
+
++ Request Not Found
+    + Parameters
+        + id: 999
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: locate requested archive media entry
+
+     
+## Update Archive Media Set via id [/archivemedia/{id}{?location,online,offline,nearline}]
+
++ Parameters (Achive Media Info)
+    + id (integer, required) - id of the media set to update
+    + location (string) - Location of the media set (optional)
+    + online (integer) - online integer value
+    + offline (integer) - offline integer value
+    + nearline (integer) - nearline integer value
+
+### Update Archive Media Set via id [PUT]
+
+Update archive media set via the archive media id. Note only the location, offline, online and nearline parameters can be updated. The name of the media cannot change.
+
++ Request Success
+    + Parameters (Achive Media Info)
+        + id: 1
+        + location: Shelf1
+        + online: 0
+        + offline: 0
+        + nearline: 1
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+
+        resource=archivemedia, error updating archivemedia
+        resource=archivemedia, please specify only one media id
+        resource=archivemedia, specify an archivemedia name or id to update
+
+
+### Delete Archive Media Information [DELETE]
+
+Delete an archive media set via an id. A comma delimited list may also be supplied to delete multiple sets.
+
++ Parameters
+    + id (integer) - id of the media set to delete
+
++ Response 200 (application/json)
+
+        Returns a list of deleted media set id's 
+        {
+          "id": [
+            1,
+            2
+          ]
+        }
+        
++ Response 400 (application/json)
+
+        resource=archivemedia, specify an archivemedia name or id to delete
+        resource=archivemedia, no media sets to delete
+
+
+
+
+## Create Archive Media Set [/archivemedia{?name,location,online,offline,nearline}]
+
+Creates an Achive Media Set. _[XXX Return code should be 201]_
+
++ Parameters
+    + name: Media123 (string, required) - Name of the media set to create
+    + location: Shelf1 (string) - Location of the media set
+    + online: 0 (integer) - online integer value
+    + offline: 0 (integer) - offline integer value
+    + nearline: 1 (integer) - nearline integer value
+### Create Archive Media Set [POST]
+
+
++ Response 201 (application/json)
+
+        Return the ID of the new media set.
+        
+        {
+            "id": [integer]
+        }
+
++ Response 400 (application/json)
+
+        *Look at separate response codes*
+        resource=archivemedia but no mediaName parameter supplied
+        resource=archivemedia media with this name already exists
+        resource=archivemedia failed to create media archive entry
+
+
+### Update Archive Media Set via name [PUT]
+
+Update archive media set via the archive media name. Note only the location, offline, online and nearline parameters can be updated. The name of the media cannot change.
+
++ Parameters
+    + name (string) - Name of the media set to update
+    + location (string) - Location of the media set
+    + online (integer) - online integer value
+    + offline (integer) - offline integer value
+    + nearline (integer) - nearline integer value
+    
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+
+        resource=archivemedia, error updating archivemedia
+        resource=archivemedia, please specify only one media id
+        resource=archivemedia, specify an archivemedia name or id to update
+        
+
+### Delete Archive Media Information [DELETE]
+
+Delete an archive media set via a name.
+
++ Parameters
+    + name (string) - Name of the media set to delete
+
++ Response 200 (application/json)
+
+        Returns the deleted media set id 
+        {
+          "id": 11
+        }
+
++ Response 400 (application/json)
+
+        resource=archivemedia, specify an archivemedia name or id to delete
+        resource=archivemedia, no media sets to delete
+
 
 
 
@@ -645,217 +992,7 @@ Restores a file/folder.
         
 
 
-# Group Archive Media API
 
-The _archivemedia_ resource allows you to create, update, list and delete archive media entries.
-
-Quick Reference:
-
-Show all archive media sets:<br>
-<strong> [GET] /archivemedia</strong><br><br>
-
-Show archive media sets with the id's 1, 2 and 3:<br>
-<strong> [GET] /archivemedia/1,2,3</strong>
-<br><br>
-
-Create the archive media set named 'MyMedia':<br>
-<strong> [POST] /archivemedia</strong>
-<br><br>
-
-Update the archive media with the id of 1:<br>
-<strong> [PUT] /archivemedia/1?location=LocationY&online=0&offline=0&nearline=4</strong>
-<br><br>
-Delete the archive media with the id of 1:<br>
-<strong> [DELETE] /archivemedia/1</strong>
-<br><br>
-
-
-## Show all Archive Media Sets [/archivemedia]
-
-Shows all available archive media sets.
-
-### Show all Archive Media Sets [GET]
-
-+ Response 200 (application/json)
-
-        {
-            "archiveMedia": [
-                {
-                    "id": [integer],
-                    "mediaName": [string],
-                    "online": [integer],
-                    "nearline": [integer],
-                    "offline": [integer]
-                    "location": [string]
-                },
-                {
-                    "id": [integer],
-                    "mediaName": [string],
-                    "online": [integer],
-                    "nearline": [integer],
-                    "offline": [integer]
-                    "location": [string]
-                }]
-        }
-
-+ Response 400 (application/json)
-
-        resource=archivemedia, both id and name specified, please use only one of these
-        resource=archivemedia, cannot locate requested archive media entry
-
-
-## Show Archive Media Sets via id [/archivemedia/{id}]
-
-Shows archive media set(s) with the given id(s). A comma delimited list may also be supplied to show multiple sets.
-
-### Show Archive Media Sets via id [GET]
-
-Show information about archive media set with the specified id(s).
-
-+ Parameters
-    + id: 12 (integer, required) - Name of the media set to show
-    
-+ Response 200 (application/json)
-
-        {
-            "archiveMedia": [
-                {
-                    "id": [integer],
-                    "mediaName": [string],
-                    "online": [integer],
-                    "nearline": [integer],
-                    "offline": [integer]
-                    "location": [string]
-                }]
-        }
-
-+ Response 400 (application/json)
-
-        resource=archivemedia, both id and name specified, please use only one of these
-        resource=archivemedia, cannot locate requested archive media entry
-
-
-## Create Archive Media Set [/archivemedia{?name,location,online,offline,nearline}]
-
-Creates an Achive Media entry. _[XXX Return code should be 201]_
-
-### Create Archive Media Set [POST]
-
-Creates an archive media set.
-
-+ Parameters
-    + name: Media123 (string) - Name of the media set to create
-    + location: Shelf1 (string) - Location of the media set
-    + online: 0 (integer) - online integer value
-    + offline: 0 (integer) - offline integer value
-    + nearline: 1 (integer) - nearline integer value
-
-+ Response 201 (application/json)
-
-        Return the ID of the new media set.
-        
-        {
-            "id": [integer]
-        }
-
-+ Response 400 (application/json)
-
-        *Look at separate response codes*
-        resource=archivemedia but no mediaName parameter supplied
-        resource=archivemedia media with this name already exists
-        resource=archivemedia failed to create media archive entry
-
-
-## Update Archive Media Set via id [/resource=archivemedia{?id,location,online,offline,nearline}]
-={id}&location={location}&online={online}&offline={offline}&nearline={nearline}]
-
-### Update Archive Media Set via id [PUT]
-
-Update archive media set via the archive media id. Note only the location, offline, online and nearline parameters can be updated. The name of the media cannot change.
-
-+ Parameters (Achive Media Info)
-    + id (integer) - id of the media set to update
-    + location (string) - Location of the media set (optional)
-    + online (integer) - online integer value
-    + offline (integer) - offline integer value
-    + nearline (integer) - nearline integer value
-    
-+ Response 200 (application/json)
-
-+ Response 400 (application/json)
-
-        resource=archivemedia, error updating archivemedia
-        resource=archivemedia, please specify only one media id
-        resource=archivemedia, specify an archivemedia name or id to update
-
-
-## Update Archive Media Set via name [/resource=archivemedia&create&name={name}&location={location}&online={online}&offline={offline}&nearline={nearline}]
-
-### Update Archive Media Set via name [PUT]
-
-Update archive media set via the archive media name. Note only the location, offline, online and nearline parameters can be updated. The name of the media cannot change.
-
-+ Parameters
-    + name (string) - Name of the media set to update
-    + location (string) - Location of the media set
-    + online (integer) - online integer value
-    + offline (integer) - offline integer value
-    + nearline (integer) - nearline integer value
-    
-+ Response 200 (application/json)
-
-+ Response 400 (application/json)
-
-        resource=archivemedia, error updating archivemedia
-        resource=archivemedia, please specify only one media id
-        resource=archivemedia, specify an archivemedia name or id to update
-        
-
-## Delete Archive Media Set via id [/resource=archivemedia&id={id}]
-     
-### Delete Archive Media Information [DELETE]
-
-Delete an archive media set via an id. A comma delimited list may also be supplied to delete multiple sets.
-
-+ Parameters
-    + id (integer) - id of the media set to delete
-
-+ Response 200 (application/json)
-
-        Returns a list of deleted media set id's 
-        {
-          "id": [
-            1,
-            2
-          ]
-        }
-        
-+ Response 400 (application/json)
-
-        resource=archivemedia, specify an archivemedia name or id to delete
-        resource=archivemedia, no media sets to delete
-
-
-## Delete Archive Media Set via name [/resource=archivemedia&name={name}]
-     
-### Delete Archive Media Information [DELETE]
-
-Delete an archive media set via a name.
-
-+ Parameters
-    + name (string) - Name of the media set to delete
-
-+ Response 200 (application/json)
-
-        Returns the deleted media set id 
-        {
-          "id": 11
-        }
-
-+ Response 400 (application/json)
-
-        resource=archivemedia, specify an archivemedia name or id to delete
-        resource=archivemedia, no media sets to delete
 
 
 

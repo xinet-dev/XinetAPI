@@ -749,39 +749,23 @@ Get list of all Media Archive sets.
 Shows archive media set(s) with the given id(s). A comma delimited list may also be supplied to show multiple sets.
 
 
-### Show Archive Media Sets via id [GET]
+### Show Archive Media [GET]
 
 Show information about archive media set with the specified id(s).
 
 + Parameters
     + id (integer, required) - Name of the media set to show
     
-
-
 + Request Success
     + Parameters
         + id: 12 
     
 + Response 200 (application/json)
-
-        {
-            "archiveMedia": [
-                {
-                    "id": [integer],
-                    "mediaName": [string],
-                    "online": [integer],
-                    "nearline": [integer],
-                    "offline": [integer]
-                    "location": [string]
-                }]
-        }
+    + Attributes (Archive Media)
 
 + Request Malformed
     + Parameters
          + id: 12
-
-    + Body 
-         + name: MyMedia
 
 + Response 400 (application/json)
     + Attributes (Error Message)
@@ -796,6 +780,24 @@ Show information about archive media set with the specified id(s).
         + error: locate requested archive media entry
 
      
+### Delete Archive Media Information [DELETE]
+
+Delete an archive media set via an id. A comma delimited list may also be supplied to delete multiple sets.
+
++ Parameters
+    + id (integer) - id of the media set to delete
+
++ Response 200 (application/json)
+    + Attributes
+        + id: 1 (number, required)
+
++ Response 400 (application/json)
+
+        resource=archivemedia, specify an archivemedia name or id to delete
+        resource=archivemedia, no media sets to delete
+
+
+
 ## Update Archive Media Set via id [/archivemedia/{id}{?location,online,offline,nearline}]
 
 + Parameters (Achive Media Info)
@@ -810,7 +812,7 @@ Show information about archive media set with the specified id(s).
 Update archive media set via the archive media id. Note only the location, offline, online and nearline parameters can be updated. The name of the media cannot change.
 
 + Request Success
-    + Parameters (Achive Media Info)
+    + Parameters
         + id: 1
         + location: Shelf1
         + online: 0
@@ -824,30 +826,6 @@ Update archive media set via the archive media id. Note only the location, offli
         resource=archivemedia, error updating archivemedia
         resource=archivemedia, please specify only one media id
         resource=archivemedia, specify an archivemedia name or id to update
-
-
-### Delete Archive Media Information [DELETE]
-
-Delete an archive media set via an id. A comma delimited list may also be supplied to delete multiple sets.
-
-+ Parameters
-    + id (integer) - id of the media set to delete
-
-+ Response 200 (application/json)
-
-        Returns a list of deleted media set id's 
-        {
-          "id": [
-            1,
-            2
-          ]
-        }
-        
-+ Response 400 (application/json)
-
-        resource=archivemedia, specify an archivemedia name or id to delete
-        resource=archivemedia, no media sets to delete
-
 
 
 

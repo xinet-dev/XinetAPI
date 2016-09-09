@@ -137,7 +137,33 @@ To specify the high-res (original) only, use the _high_ option.
         + id: 123
 
 + Response 200 (application/json)
-    + Attributes (File High Res Video)
+    + Attributes (File Video Preview)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File Video Preview [/files/{id}/videos/{video_id}]
+
+To specify a particular video preview request the {video_id}.
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+    + video_id: 123 (required, number) - The ID of the video preview
+
+### Get Video Preview [GET]
+
++ Request Success
+    + Parameters
+        + id: 123
+
++ Response 200 (application/json)
+    + Attributes (File Video Preview)
 
 + Response 400 (application/json)
     + Attributes (Error Message)
@@ -188,7 +214,33 @@ To specify the original only, use the _high_ option.
         + id: 123
 
 + Response 200 (application/json)
-    + Attributes (File High Res Audio)
+    + Attributes (File Audio Preview)
+
++ Response 400 (application/json)
+    + Attributes (Error Message)
+        + error: Malformed Request
+
++ Response 422 (application/json)
+    + Attributes (Error Message)
+        + error: Entry not found
+
+
+## File Audio Preview [/files/{id}/audio/{audio_id}]
+
+To specify a particular audio preview request the {audio_id}.
+
++ Parameters
+    + id: 123 (required, number) - The File ID of the asset.
+    + audio_id: 123 (required, number) - The ID of the audio preview
+
+### Get Audio Preview [GET]
+
++ Request Success
+    + Parameters
+        + id: 123
+
++ Response 200 (application/json)
+    + Attributes (File Audio Preview)
 
 + Response 400 (application/json)
     + Attributes (Error Message)
@@ -628,9 +680,6 @@ Get keyword info.
         + error: Entry not found
 
 
-# Group Collections Resource API
-
-
 
 # Group Volumes Resource API
 
@@ -684,6 +733,20 @@ Get volume info.
         + error: Entry not found
 
 
+# Group Collections Resource API
+
+The _collection_ resource (aka baskets), provides information on 
+the user collections and plugins.
+
+## Collection Plugins
+
+## Show Collection
+
+## Clear Collection
+
+## Add Collection 
+
+## Delete Collection 
 
 
 
@@ -939,6 +1002,39 @@ Restores a file/folder.
 
 
 
+# Group Actions API 
+
+These are non-resource actions. 
+
+# Upload Files
+
+# Order Image
+
+
+
+# Group File Manager Actions 
+
+# Create Directory
+
+# Move File or Folder
+
+# Delete File or Folder
+
+
+# Group Version Actions
+
+# Promote 
+
+# Create Version
+
+
+# Group Search Action
+
+# Solr Search
+
+# Saved Searches
+
+
 
 
 
@@ -1101,7 +1197,7 @@ Restores a file/folder.
 - fileID: 123 (number, required)
 - videoInfo (array[Video Info])
 
-## File High Res Video (object)
+## File Video Preview (object)
 - fileID: 123 (number, required)
 - videoInfo (Video Info)
 
@@ -1131,7 +1227,7 @@ Restores a file/folder.
 - fileID: 123456 (number, required)
 - audioInfo (array[Audio Info])
 
-## File High Res Audio (object)
+## File Audio Preview (object)
 - fileID: 123456 (number, required)
 - audioInfo (Audio Info)
 
@@ -1311,7 +1407,7 @@ Restores a file/folder.
 - keywordID: 19 (number, required) - Keyword ID
 - order: 0 (number) - Template rank
 - editable: 3 (number, required) - Editable flag
-- name: Byline (number, required) - Keyword name
+- name: Byline (string, required) - Keyword name
 - description: IPTC-NAA record (string) - Keyword description
 - type: 253 (number, required) - MySQL data type
 - size: 255 (number) - Keyword data size

@@ -6,6 +6,43 @@ HOST: http://private-44548-xinetapi.apiary-mock.com/xinetapi
 This document describes the new Xinet API.
 
 
+# Group Navigator Resource API
+
+The _navigator_ resource allows the traversal of the hierarchical file system.
+
+## Navigator Info  
+
+resource=navigator&id=12  
+returns navigator information for folder with id  
+  
+resource=navigator&id=12,13,14  
+returns navigator information for folders with ids 12,13 and 14  
+  
+resource=navigator&path=/Assets/James  
+returns navigator information for the path /Assets/James  
+    
+resource=navigator&path=/Assets/James1&path=/Assets/James2  
+returns navigator information for the paths /Assets/James1 and /Assets/James2  
+  
+resource=navigator&id=12&skipexpired  
+returns navigator information for folder with id 12, but hides assets that have expired  
+  
+resource=navigator&id=12&show=assets  
+returns navigator information for folder with id 12, showing additional information about whether each asset is available along with the child and folder status (whatever that means).  
+  
+resource=navigator&id=12&show=archive  
+returns navigator information for folder with id 12, showing any additional archiving information  
+  
+resource=navigator&id=12&navmode=[0|1|2]  
+returns navigator information for folder with id 12. navmode determines how information is obtained. Note 0 and 1 require 'Solr' (preferred method) to be running.  
+0 = use Solr to query and DB to get detailed info  
+1 = use Solr to query and sp_Getinfo to get detailed info  
+2 = use the sp_Navigator stored procedure  
+  
+Complicated example:  
+resource=navigator&id=1,2&path=/Assets/TestFolder&show=assets,archive&navmode=1  
+  
+
 
 # Group File Resource API
 
@@ -30,7 +67,6 @@ so I've removed the array wrap and just returned the File object.]_
 
 + Response 200 (application/json)
     + Attributes (File)
-
 
 + Request Malformed
     + Parameters
@@ -1048,9 +1084,8 @@ These are non-resource actions.
 - fileID: 123 (number, required)
 - fileInfo (File Info)
 
-    
 ## File Info (object)
-+ parentFileID:120 (number, required)
++ parentFileID:1201 (number, required)
 + filename: Testfile.pdf (string, required)
 + filenameDecomposed: Testfile.pdf (string)
 + pathID: 12 (number, required)
@@ -1068,7 +1103,189 @@ These are non-resource actions.
 + inBasket: false (boolean)
 + mediaType: image, cad, movie, audio, html, office (enum)
 
+## FileFolder (object)
+- fileID: 1231 (number, required)
+- fileInfo (FileFolder Info)
 
+## FileFolder Info (object)
++ parentFileID:120 (number, required)
++ filename: Testfile.pdf (string, required)
++ filenameDecomposed: Testfile.pdf (string)
++ pathID: 12 (number, required)
++ path: /home/files (string, required)
++ pathUTF8mac: /home/files (string)
++ type: `PDF ` (string, required)
++ creator: CARO (string, required)
++ length: 493488 (number)
++ isDir: true (boolean)
++ createDate: 1297053580 (number)
++ modifyDate: 1297055858 (number)
++ accessDate: 1400021440 (number)
++ finderFlags: 0 (number)
++ online: true (boolean)
++ inBasket: false (boolean)
++ mediaType: image, cad, movie, audio, html, office (enum)
+
+## FileNonOnline (object)
+- fileID: 1232 (number, required)
+- fileInfo (FileNonOnline Info)
+
+## FileNonOnline Info (object)
++ parentFileID:120 (number, required)
++ filename: Testfile.pdf (string, required)
++ filenameDecomposed: Testfile.pdf (string)
++ pathID: 12 (number, required)
++ path: /home/files (string, required)
++ pathUTF8mac: /home/files (string)
++ type: `PDF ` (string, required)
++ creator: CARO (string, required)
++ length: 493488 (number)
++ isDir: false (boolean)
++ createDate: 1297053580 (number)
++ modifyDate: 1297055858 (number)
++ accessDate: 1400021440 (number)
++ finderFlags: 0 (number)
++ online: false (boolean)
++ inBasket: false (boolean)
++ mediaType: image, cad, movie, audio, html, office (enum)
+
+## FileCollection (object)
+- fileID: 1233 (number, required)
+- fileInfo (FileCollection Info)
+
+## FileCollection Info (object)
++ parentFileID:120 (number, required)
++ filename: Testfile.pdf (string, required)
++ filenameDecomposed: Testfile.pdf (string)
++ pathID: 12 (number, required)
++ path: /home/files (string, required)
++ pathUTF8mac: /home/files (string)
++ type: `PDF ` (string, required)
++ creator: CARO (string, required)
++ length: 493488 (number)
++ isDir: false (boolean)
++ createDate: 1297053580 (number)
++ modifyDate: 1297055858 (number)
++ accessDate: 1400021440 (number)
++ finderFlags: 0 (number)
++ online: true (boolean)
++ inBasket: true (boolean)
++ mediaType: image, cad, movie, audio, html, office (enum)
+
+## FileCad (object)
+- fileID: 1234 (number, required)
+- fileInfo (FileCad Info)
+
+## FileCad Info (object)
++ parentFileID:120 (number, required)
++ filename: Testfile.pdf (string, required)
++ filenameDecomposed: Testfile.pdf (string)
++ pathID: 12 (number, required)
++ path: /home/files (string, required)
++ pathUTF8mac: /home/files (string)
++ type: `PDF ` (string, required)
++ creator: CARO (string, required)
++ length: 493488 (number)
++ isDir: false (boolean)
++ createDate: 1297053580 (number)
++ modifyDate: 1297055858 (number)
++ accessDate: 1400021440 (number)
++ finderFlags: 0 (number)
++ online: true (boolean)
++ inBasket: false (boolean)
++ mediaType: cad, image, movie, audio, html, office (enum)
+
+## FileMovie (object)
+- fileID: 1235 (number, required)
+- fileInfo (FileMovie Info)
+
+## FileMovie Info (object)
++ parentFileID:120 (number, required)
++ filename: Testfile.pdf (string, required)
++ filenameDecomposed: Testfile.pdf (string)
++ pathID: 12 (number, required)
++ path: /home/files (string, required)
++ pathUTF8mac: /home/files (string)
++ type: `PDF ` (string, required)
++ creator: CARO (string, required)
++ length: 493488 (number)
++ isDir: false (boolean)
++ createDate: 1297053580 (number)
++ modifyDate: 1297055858 (number)
++ accessDate: 1400021440 (number)
++ finderFlags: 0 (number)
++ online: true (boolean)
++ inBasket: false (boolean)
++ mediaType: movie, cad, image, audio, html, office (enum)
+
+## FileAudio (object)
+- fileID: 1236 (number, required)
+- fileInfo (FileAudio Info)
+
+## FileAudio Info (object)
++ parentFileID:120 (number, required)
++ filename: Testfile.pdf (string, required)
++ filenameDecomposed: Testfile.pdf (string)
++ pathID: 12 (number, required)
++ path: /home/files (string, required)
++ pathUTF8mac: /home/files (string)
++ type: `PDF ` (string, required)
++ creator: CARO (string, required)
++ length: 493488 (number)
++ isDir: false (boolean)
++ createDate: 1297053580 (number)
++ modifyDate: 1297055858 (number)
++ accessDate: 1400021440 (number)
++ finderFlags: 0 (number)
++ online: true (boolean)
++ inBasket: false (boolean)
++ mediaType: audio, movie, cad, image, html, office (enum)
+
+## FileHtml (object)
+- fileID: 1237 (number, required)
+- fileInfo (FileHtml Info)
+
+## FileHtml Info (object)
++ parentFileID:120 (number, required)
++ filename: Testfile.pdf (string, required)
++ filenameDecomposed: Testfile.pdf (string)
++ pathID: 12 (number, required)
++ path: /home/files (string, required)
++ pathUTF8mac: /home/files (string)
++ type: `PDF ` (string, required)
++ creator: CARO (string, required)
++ length: 493488 (number)
++ isDir: false (boolean)
++ createDate: 1297053580 (number)
++ modifyDate: 1297055858 (number)
++ accessDate: 1400021440 (number)
++ finderFlags: 0 (number)
++ online: true (boolean)
++ inBasket: false (boolean)
++ mediaType: html, audio, movie, cad, image, office (enum)
+
+## FileOffice (object)
+- fileID: 1238 (number, required)
+- fileInfo (FileOffice Info)
+
+## FileOffice Info (object)
++ parentFileID:120 (number, required)
++ filename: Testfile.pdf (string, required)
++ filenameDecomposed: Testfile.pdf (string)
++ pathID: 12 (number, required)
++ path: /home/files (string, required)
++ pathUTF8mac: /home/files (string)
++ type: `PDF ` (string, required)
++ creator: CARO (string, required)
++ length: 493488 (number)
++ isDir: false (boolean)
++ createDate: 1297053580 (number)
++ modifyDate: 1297055858 (number)
++ accessDate: 1400021440 (number)
++ finderFlags: 0 (number)
++ online: true (boolean)
++ inBasket: false (boolean)
++ mediaType: office, html, audio, movie, cad, image (enum)
 
 ## File Annotations (object) 
 - fileID: 123 (number, required)
